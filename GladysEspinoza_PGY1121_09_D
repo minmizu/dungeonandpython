@@ -1,0 +1,94 @@
+tipo=[]
+patente=[]
+marca=[]
+precio=[]
+multa_monto=[]
+multa_fecha=[]
+fecha_registro=[]
+nombre_dueño=[]
+x=True
+c=0
+
+def menu():
+  print("Opción 1 para grabar un vehiculo")
+  print("Opción 2 para buscar un vehiculo")
+  print("Opción 3 para para imprimir certificados")
+  print("Opción 4 para salir")
+
+def grabar_vehiculo():
+    tipo_vehiculo = input("Ingrese el tipo de vehiculo: ")
+    patente_vehiculo = input("Ingrese la patente del vehiculo: ")
+    marca_vehiculo = input("Ingrese la marca del vehiculo: ")
+    precio_vehiculo = int(input("Ingrese el precio del vehiculo: "))
+    multa_monto_vehiculo = 0
+    multa_fecha_vehiculo = 0
+    fecha_registro_vehiculo = input("Ingrese la fecha de registro del vehiculo: ")
+    nombre_dueño_vehiculo = input("Ingrese el nombre del dueño: ")
+
+    if len(patente_vehiculo) != 6:
+        print("La patente debe tener 6 caracteres.")
+        return
+    if len(marca_vehiculo) < 2 or len(marca_vehiculo) > 15:
+        print("La marca debe tener entre 2 y 15 caracteres.")
+        return
+    if precio_vehiculo <= 5000000:
+        print("El precio debe ser mayor a $5.000.000.")
+        return
+
+    tipo.append(tipo_vehiculo)
+    patente.append(patente_vehiculo)
+    marca.append(marca_vehiculo)
+    precio.append(precio_vehiculo)
+    multa_monto.append(multa_monto_vehiculo)
+    multa_fecha.append(multa_fecha_vehiculo)
+    fecha_registro.append(fecha_registro_vehiculo)
+    nombre_dueño.append(nombre_dueño_vehiculo)
+
+    print("Vehiculo grabado exitosamente.")
+
+def buscar_vehiculo():
+    buscar = input("Ingrese la patente a buscar: ")
+    for i in range(len(patente)):
+        if patente[i] == buscar:
+            c += 1
+            print("El tipo de vehiculo es el siguiente: ", tipo[i])
+            print("La patente del vehiculo es: ", patente[i])
+            print("La marca del vehiculo es: ", marca[i])
+            print("El valor del vehiculo es: ", precio[i])
+            if multa_monto[i] == 0 and multa_fecha[i] == 0:
+                print("No presenta multas.")
+            else:
+                print("La multa tiene un valor de: ", multa_monto[i])
+                print("La fecha de la multa es: ", multa_fecha[i])
+            print("La fecha del registro es: ", fecha_registro[i])
+            print("El nombre del representante legal es: ", nombre_dueño[i])
+
+    if c == 0:
+        print("No se encontró ningún vehiculo con esa patente.")
+
+def imprimir_certificados():
+    certificados = ["Emisión de contaminantes", "Anotaciones vigentes", "Multas"]
+    for i in range(len(patente)):
+        certificado = random.choice(certificados)
+        monto_aleatorio = random.randint(1500, 3500)
+        print("Certificado:", certificado)
+        print("Patente del auto:", patente[i])
+        print("Datos del dueño:", nombre_dueño[i])
+        print("Monto aleatorio:", monto_aleatorio)
+        print("-----------------------------------")
+
+while x:
+    menu()
+    z = int(input("Ingrese su opción: "))
+
+    if z == 1:
+        grabar_vehiculo()
+    elif z == 2:
+        buscar_vehiculo()
+    elif z == 3:
+        imprimir_certificados()
+    elif z == 4:
+        x = False
+        print("¡Hasta luego!")
+    else:
+        print("Opción ingresada no válida, intente de nuevo")
