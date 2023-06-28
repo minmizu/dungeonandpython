@@ -1,0 +1,94 @@
+import random
+nif_persona = []
+nombre_persona = []
+edad_persona = []
+verificar_nif = []
+buscar_nif = []
+certificados = []
+encontrado= []
+
+def menu():
+  print("Opción 1: Grabar una persona")
+  print("Opción 2: Buscar una persona")
+  print("Opción 3: Imprimir certificados")
+  print("Opción 4: Salir")
+
+def grabar_persona():
+    nif_person = input("Ingrese el NIF de la persona: ")
+    nombre_person = input("Ingrese el nombre de la persona: ")
+    edad_person = int(input("Ingrese la edad de la persona: "))
+   
+    if verificar_nif(nif_persona):
+        print("El NIF que ha sido ingresado es correcto.")
+        return
+    if len(nombre_persona) < 8:
+        print("El nombre ha sido ingresado correctamente.")
+        return
+    if edad_persona < 0:
+        print("La edad ha sido ingresada correctamente")
+        return
+    else:
+      print("Datos ingresados incorrectamente, intente nuevamente")
+
+    nif_persona.append(nif_person)
+    nombre_persona.append(nombre_person)
+    edad_persona.append(edad_person)
+
+    print("Persona grabada exitosamente.")
+
+def buscar_persona():
+    buscar_nif = input("Ingrese el NIF a buscar: ")
+    encontrado = False
+    for i in range(len(nif_persona)):
+        if nif_persona[i] == buscar_nif:
+            encontrado = True
+            print("El NIF de la persona es: ", nif_persona[i])
+            print("El nombre de la persona es: ", nombre_persona[i])
+            print("La edad de la persona es: ", edad_persona[i])
+            print("La persona", nombre_persona[i], "pertenece a la Unión Europea.")
+
+        else:
+            print("No se encontró ninguna persona con ese NIF.")
+
+
+def imprimir_certificados():
+    certificados = ["Certificado de nacimiento", "Estado conyugal", "Pertenencia a la Unión Europea"]
+    for i in range(len(nif_persona)):
+        certificado = random.choice(certificados[i])
+        print("Certificado:", certificados[i])
+        print("NIF:", nif_persona[i])
+        print("Nombre:", nombre_persona[i])
+        print("-----------------------------------")
+def verificar_nif(nif):
+    if len(nif_persona) != 11 or nif[8] != "-":
+        return False
+
+    letras_validas = ["RTX", "XXY", "CCU", "03F"]
+    if nif[9:] not in letras_validas:
+        return False
+
+    if not nif[:8].isdigit():
+        return False
+
+    return True
+
+print("Programa de Registro de Ciudadanos")
+print("Versión: 1.0\n")
+
+while True:
+    menu()
+    opcion = int(input("Ingrese su opción: "))
+
+    if opcion == 1:
+        grabar_persona()
+    elif opcion == 2:
+        buscar_persona()
+    elif opcion == 3:
+        imprimir_certificados()
+    elif opcion == 4:
+        print("¡Gracias por usar el programa! Espero te haya sido de ayuda")
+        print("Creado por Gladys Espinoza")
+        print("Versión: 1.0")
+        break
+    else:
+        print("Opción ingresada no válida, por favor, intente de nuevo")
